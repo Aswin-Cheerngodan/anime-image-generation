@@ -8,29 +8,30 @@ from PIL import Image
 def load_generator():
     return tf.keras.models.load_model('models/DCGEN (2).h5')
 
+# Load generator
 generator = load_generator()
-latent_dim = 100  # Update if your DCGAN used a different dimension
 
-st.title("🧠 DCGAN Image Generator")
-st.write("Click the button to generate a new image from random noise using your trained DCGAN.")
+# Correct latent dimension based on your model definition
+latent_dim = 300
+
+# Streamlit app UI
+st.title("🎨 DCGAN Anime Image Generator")
+st.write("Click the button to generate a new anime-style image using the trained DCGAN generator.")
 
 # Predict button
-if st.button("Predict"):
-    # Generate random noise
-    noise = tf.random.normal([1, 300])
+if st.button("Generate Image"):
+    # Generate random noise with correct shape
+    noise = tf.random.normal([1, latent_dim])  # [batch_size, latent_dim]
 
-    # Generate image
+    # Generate image using the model
     generated_image = generator(noise, training=False)
 
-    # Rescale from [-1, 1] to [0, 255]
-    generated_image = (generated_image + 1) / 2.0
-    generated_image = tf.clip_by_value(generated_image, 0.0, 1.0)
+    # Remove batch dimension and convert to NumPy
     generated_image = tf.squeeze(generated_image).numpy()
 
-    # If image is grayscale (single channel), handle accordingly
-    if len(generated_image.shape) == 2:
-        image = Image.fromarray((generated_image * 255).astype(np.uint8), mode='L')
-    else:
-        image = Image.fromarray((generated_image * 255).astype(np.uint8))
+    # Convert to PIL Image and display
+    
+    image = Image.fromarray((generated_image * 255).astype(np.uint8))
 
-    st.image(image, caption="Generated Image", use_container_width=True)
+
+    st.image(image, caption="🧠 Generated Image", use_container_width=True)
