@@ -6,7 +6,7 @@ from PIL import Image
 # Load the trained generator model
 @st.cache_resource
 def load_generator():
-    return tf.keras.models.load_model('models/DCGEN (2).h5')
+    return tf.keras.models.load_model('models\DCGEN.h5')
 
 # Load generator
 generator = load_generator()
@@ -20,18 +20,28 @@ st.write("Click the button to generate a new anime-style image using the trained
 
 # Predict button
 if st.button("Generate Image"):
-    # Generate random noise with correct shape
-    noise = tf.random.normal([1, latent_dim])  # [batch_size, latent_dim]
-
-    # Generate image using the model
-    generated_image = generator(noise, training=False)
-
-    # Remove batch dimension and convert to NumPy
-    generated_image = tf.squeeze(generated_image).numpy()
-
-    # Convert to PIL Image and display
+    images = []
     
-    image = Image.fromarray((generated_image * 255).astype(np.uint8))
+    for i in range(16):
+    # Generate random noise with correct shape
+        noise = tf.random.normal([1, latent_dim])  # [batch_size, latent_dim]
 
+        # Generate image using the model
+        generated_image = generator(noise, training=False)
 
-    st.image(image, caption="🧠 Generated Image", use_container_width=True)
+        # Remove batch dimension and convert to NumPy
+        generated_image = tf.squeeze(generated_image).numpy()
+
+        # Convert to PIL Image and display
+        image = Image.fromarray((generated_image * 255).astype(np.uint8))
+        images.append(image)
+
+    # Number of images per row
+    num_columns = 4
+
+    # Loop through images in batches
+    for i in range(0, len(images), num_columns):
+        cols = st.columns(num_columns)
+        for j, img in enumerate(images[i:i + num_columns]):  
+            cols[j].image(img, caption=f"Image {i+j+1}", use_container_width=False, width=128)
+
