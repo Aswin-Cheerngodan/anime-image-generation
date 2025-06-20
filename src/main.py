@@ -6,7 +6,7 @@ from PIL import Image
 # Load the trained generator model
 @st.cache_resource
 def load_generator():
-    return tf.keras.models.load_model('models\DCGEN.h5')
+    return tf.keras.models.load_model('models/DCGAN.h5')
 
 # Load generator
 generator = load_generator()
