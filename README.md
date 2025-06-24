@@ -55,14 +55,20 @@ pip install -r requirements.txt
 ```bash
 streamlit run src/main.py
 ```
-🌐 **Access the App**
-anime-image-generator: http://localhost:8501
+## 🌐 Access the App  
+anime-image-generator: http://localhost:8501  
 
-🧪 **Example Usage**
-Click the generate button
-It generates 16 different anime faces
+## 🌐 Access the Deployed App    
+The project can also be accessed via a deployed version on Streamlit Cloud:   
 
-📬 **Contact**
+👉 https://image-generation-project-8wmthkmoysxlvyn6fuseal.streamlit.app/  
+
+## 🧪 Example Usage   
+Click the generate button.  
+
+It generates 16 different anime faces.   
+
+## 📬 **Contact**   
 Questions or contributions? Open an issue or reach out at aachu8966@gmail.com
 
 
