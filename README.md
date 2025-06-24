@@ -39,8 +39,8 @@ Make sure you have:
 
 1️⃣ **Clone this repository**:
 ```bash
-git clone https://github.com/your-username/image-generation-project.git
-cd image-generation-project
+git clone https://github.com/Aswin-Cheerngodan/anime-image-generation.git
+cd anime-image-generation
 ```
 2️⃣ **Create a virtual environment** (optional but recommended):
 ```bash
